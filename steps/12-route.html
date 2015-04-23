@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <meta charset="utf8" />
+    <title>TodoList - AngularJS</title>
+</head>
+<body ng-app>
+<div ng-view></div>
+
+<a href="#/about">Über</a>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.10/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular-route.js"></script>
+<script type="text/javascript">
+    var app = angular.module('todoApp', ['ngRoute']);
+
+    app.config(function($routeProvider) {
+        $routeProvider
+                .when('/', { templateUrl: '12-route-form.html', controller: 'TodoController' })
+                .when('/about', { template: 'Über den Space' })
+                .otherwise({ redirectTo: '/' });
+    });
+
+    app.controller('TodoController', function($scope) {
+        $scope.tasks = [{desc: 'Einkaufen'}, {desc: 'AngularJS lernen'}];
+        $scope.addTask = function() {
+            $scope.tasks.push($scope.newTask);
+            $scope.newTask = {};
+        };
+        $scope.removeTask = function(task) {
+            $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+        };
+    });
+</script>
+</body>
+</html>
